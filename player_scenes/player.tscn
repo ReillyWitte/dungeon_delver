@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://45d7nju3xes"]
+
+[ext_resource type="Script" uid="uid://ymx5rbs6uyt3" path="res://player_scenes/player.gd" id="1_i0non"]
+[ext_resource type="Texture2D" uid="uid://cy6oj1uqcw2m1" path="res://sprites/icon.svg" id="2_mvt22"]
+[ext_resource type="Texture2D" uid="uid://duxcdf2q1iris" path="res://sprites/Diamond_Sword_JE3_BE3.webp" id="3_mvt22"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fsq50"]
+size = Vector2(120, 120)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_weiti"]
+radius = 13.0
+height = 134.0
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_i0non")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_mvt22")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_fsq50")
+
+[node name="WeaponHitbox" type="Area2D" parent="."]
+visible = false
+monitoring = false
+
+[node name="Sprite2D" type="Sprite2D" parent="WeaponHitbox"]
+position = Vector2(114.00001, 0.9999957)
+rotation = 0.79312974
+scale = Vector2(0.28, 0.28)
+texture = ExtResource("3_mvt22")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WeaponHitbox"]
+position = Vector2(119.99999, 0.9999999)
+rotation = -1.5737219
+shape = SubResource("CapsuleShape2D_weiti")
+
+[connection signal="area_entered" from="WeaponHitbox" to="." method="_on_weapon_hitbox_area_entered"]

@@ -8,7 +8,7 @@ extends CharacterBody2D
 
 # --- Configuration: Combat ---
 @export var attack_duration: float = 0.3 # How long the sword swing animation lasts
-@export var attack_speed_multiplier: float = 0.50 # Multiplier for movement speed while attacking (0.25 means 25% of base speed)
+@export var attack_speed_multiplier: float = 0.15 # Multiplier for movement speed while attacking (0.25 means 25% of base speed)
 
 # --- Internal Variables ---
 var dash_timer: float = 0.0
@@ -19,12 +19,12 @@ var is_attacking: bool = false
 var attack_timer: float = 0.0
 
 # --- Process for Aiming (Visual Update) ---
-func _process(delta):
+func _process(_delta):
 	# Aiming: Always rotate the character to face the mouse cursor.
 	# This ensures the sword (which should be a child of this node) is pointing correctly.
 	if is_attacking:
 		# Optionally lock rotation while attacking for specific animations
-		look_at(get_global_mouse_position()) 
+		pass 
 	else:
 		look_at(get_global_mouse_position())
 		
@@ -36,6 +36,9 @@ func start_attack():
 		attack_timer = attack_duration
 		# At this point, you would trigger the sword animation and collision box.
 		print("Sword Attack Started!")
+		# Activate hitbox
+		$WeaponHitbox.monitoring = true
+		$WeaponHitbox.visible = true  # optional for debugging
 
 # --- Physics Process (Movement and Action Logic) ---
 func _physics_process(delta):
@@ -52,6 +55,8 @@ func _physics_process(delta):
 		attack_timer -= delta
 		if attack_timer <= 0.0:
 			is_attacking = false
+			$WeaponHitbox.monitoring = false
+			$WeaponHitbox.visible = false
 			print("Sword Attack Finished.")
 	elif dash_timer > 0.0:
 		# --- DASHING STATE ---
@@ -81,3 +86,9 @@ func _physics_process(delta):
 
 	# Execute movement for all states (even if velocity is 0)
 	move_and_slide()
+
+
+func _on_weapon_hitbox_area_entered(area):
+	if area.is_in_group("enemies"):
+		print("Hit enemy:", area.name)
+		# later: area.take_damage(damage_value)
