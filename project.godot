@@ -11,9 +11,14 @@ config_version=5
 [application]
 
 config/name="Dungeon Delver"
-run/main_scene="uid://45d7nju3xes"
+run/main_scene="uid://dr0hem61p8ale"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://sprites/icon.svg"
+
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [input]
 

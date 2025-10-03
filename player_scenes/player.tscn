@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://45d7nju3xes"]
 
-[ext_resource type="Script" uid="uid://ymx5rbs6uyt3" path="res://player_scenes/player.gd" id="1_i0non"]
+[ext_resource type="Script" uid="uid://ymx5rbs6uyt3" path="res://scripts/player.gd" id="1_i0non"]
 [ext_resource type="Texture2D" uid="uid://cy6oj1uqcw2m1" path="res://sprites/icon.svg" id="2_mvt22"]
 [ext_resource type="Texture2D" uid="uid://duxcdf2q1iris" path="res://sprites/Diamond_Sword_JE3_BE3.webp" id="3_mvt22"]
 
@@ -13,6 +13,7 @@ height = 134.0
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_i0non")
+speed = 100.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_mvt22")
@@ -34,5 +35,8 @@ texture = ExtResource("3_mvt22")
 position = Vector2(119.99999, 0.9999999)
 rotation = -1.5737219
 shape = SubResource("CapsuleShape2D_weiti")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)
 
 [connection signal="area_entered" from="WeaponHitbox" to="." method="_on_weapon_hitbox_area_entered"]
